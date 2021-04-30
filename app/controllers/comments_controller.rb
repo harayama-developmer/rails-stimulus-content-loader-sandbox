@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_post
 
   def index
-    @comments = @post.comments
+    render partial: 'posts/comments', locals: { post: @post, comments: @post.comments }
   end
 
   def create

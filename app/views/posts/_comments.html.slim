@@ -1,0 +1,8 @@
+- if comments.present?
+  ul
+    - comments.each do |comment|
+      li
+        = simple_format comment.body
+        span = link_to "削除", [post, comment], data: { confirm: 'Are you sure?' }, method: :delete
+- else
+  p コメントはありません。
