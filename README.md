@@ -1,3 +1,6 @@
+Qiita:
+https://qiita.com/harayama2/items/b721a2f474f7d81ba880
+
 # README
 
 Development template for Rails6.1 and PG.
@@ -11,70 +14,34 @@ RAILS_VERSION: '6.1'
 
 ## Usage
 
-### 1. Build Image
+1. Create `.env`
 
-```bash
-$ mkdir YOUR_REPOSITORY_NAME
-$ cd YOUR_REPOSITORY_NAME
-$ git clone git@github.com:harayama-developmer/template-docker-rails-6-postgresql.git .
-$ rm -rf .git/
-$ make init
+```
+# .env
+
+# Database
+DATABASE_USER=root
+DATABASE_PASSWORD=password
+DATABASE_HOST=postgres
+DATABASE_PORT=5432
+DATABASE_DEV_NAME=app_development
+DATABASE_TEST_NAME=app_test
 ```
 
-Please change to `.env` your preference.
-
-### 2. Rails New
-
-This command is uses `-m ./rails_template.rb` option.
+2. Build
 
 ```bash
-$ docker-compose run --rm backend rails new . -m ./rails_template.rb -d postgresql -T
+$ docker-compose build
 ```
 
-[Template details](rails_template.rb)
-
-Please change to `rails new options` your preference.
-
-#### Other Examples
+3. Create database
 
 ```bash
-$ docker-compose run --rm backend rails new . -d postgresql -T --skip-action-mailbox --webpack=stimulus
+$ docker-compose run --rm backend rails db:setup
 ```
 
-After rails new command, you must create database.
+4. Up
 
 ```bash
-$ docker-compose run --rm backend rails db:create
-```
-
-options:
-
-- --database=postgresql
-- --skip-active-storage
-- --skip-action-mailer
-- --skip-active-job
-- --skip-action-cable
-- --skip-action-mailbox
-- --skip-action-text
-- --skip-turbolinks
-- --skip-sprockets
-- --skip-spring
-- --skip-bootsnap
-
-### 3. Start containers
-
-```bash
-$ make
-# or
-# $ docker-compose up
-```
-
-Access `http://localhost:3000` on your browser.
-
-![rails_hello_world](https://user-images.githubusercontent.com/44060633/102802678-60cf1080-43fa-11eb-8918-bf2bacf0fbe9.png)
-
-**End containers**
-
-```bash
-$ make down
+$ docker-compose up
 ```
